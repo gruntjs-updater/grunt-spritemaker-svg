@@ -32,6 +32,7 @@ module.exports = function(grunt) {
     spritemakersvg: {
       default_options: {
         options: {
+          'sassFile': 'tmp/_spritemap.scss'
         },
         files: {
           'tmp/output.svg': ['test/fixtures/*.svg'],

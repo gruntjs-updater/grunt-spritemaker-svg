@@ -28,11 +28,15 @@ exports.spritemaker_svg = {
     done();
   },
   default_options: function(test) {
-    test.expect(1);
+    test.expect(2);
 
-    var actual = grunt.file.read('tmp/output.svg');
-    var expected = grunt.file.read('test/expected/output.svg');
-    test.equal(actual, expected, 'Sprites correctly');
+    var actualSvg = grunt.file.read('tmp/output.svg');
+    var expectedSvg = grunt.file.read('test/expected/output.svg');
+    test.equal(actualSvg, expectedSvg, 'Sprites correctly');
+
+    var actualSass = grunt.file.read('tmp/_spritemap.scss');
+    var expectedSass = grunt.file.read('test/expected/_spritemap.scss');
+    test.equal(actualSass, expectedSass, 'Sprites correctly');
 
     test.done();
   },

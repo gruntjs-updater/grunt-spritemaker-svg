@@ -1,0 +1,34 @@
+/**
+ * Usage:
+ *
+ * .sprited-thing {
+ *   width: sprite-width(sprite-name)*1px;
+ *   height: sprite-height(sprite-name)*1px;
+ *   background: url(/path/to/sprite) no-repeat sprite-background-position(sprite-name);
+ *
+ *   &:hover,
+ *   &:focus {
+ *     background-position: sprite-background-position(other-sprite);
+ *   }
+ * }
+ *
+ */
+@function sprite-x($name) {
+  @if $name == 'rect-10-blue' { @return 0; }
+  @if $name == 'rect-10-red' { @return 10; }
+}
+@function sprite-y($name) {
+  @if $name == 'rect-10-blue' { @return 0; }
+  @if $name == 'rect-10-red' { @return 0; }
+}
+@function sprite-width($name) {
+  @if $name == 'rect-10-blue' { @return 10; }
+  @if $name == 'rect-10-red' { @return 10; }
+}
+@function sprite-height($name) {
+  @if $name == 'rect-10-blue' { @return 10; }
+  @if $name == 'rect-10-red' { @return 10; }
+}
+@function sprite-background-position($name) {
+  @return (sprite-x($name)*-1px) (sprite-y($name)*-1px);
+}

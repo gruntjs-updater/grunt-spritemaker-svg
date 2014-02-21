@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
+			'sassFile': false
 		});
 
 		// Iterate over all specified file groups.
@@ -48,9 +49,65 @@ module.exports = function(grunt) {
 			var generated = spritemaker(src);
 			generated.pipe(output);
 
+			var packeddone = false;
+			var streamdone = false;
+
+			function maybedone() {
+				if (packeddone && streamdone) {
+					done();
+				}
+			}
+
+			generated.on('packed', function(data) {
+				var output = '';
+				output += '/**\n';
+				output += ' * Usage:\n';
+				output += ' *\n';
+				output += ' * .sprited-thing {\n';
+				output += ' *   width: sprite-width(sprite-name)*1px;\n';
+				output += ' *   height: sprite-height(sprite-name)*1px;\n';
+				output += ' *   background: url(/path/to/sprite) no-repeat sprite-background-position(sprite-name);\n';
+				output += ' *\n';
+				output += ' *   &:hover,\n';
+				output += ' *   &:focus {\n';
+				output += ' *     background-position: sprite-background-position(other-sprite);\n';
+				output += ' *   }\n';
+				output += ' * }\n';
+				output += ' *\n';
+				output += ' */\n';
+
+				var spritex = '@function sprite-x($name) {\n';
+				var spritey = '@function sprite-y($name) {\n';
+				var spritewidth = '@function sprite-width($name) {\n';
+				var spriteheight = '@function sprite-height($name) {\n';
+				data.items.forEach(function(item) {
+					spritex += "  @if $name == '" + item.id + "' { @return " + item.x + "; }\n";
+					spritey += "  @if $name == '" + item.id + "' { @return " + item.y + "; }\n";
+					spritewidth += "  @if $name == '" + item.id + "' { @return " + item.width + "; }\n";
+					spriteheight += "  @if $name == '" + item.id + "' { @return " + item.height + "; }\n";
+				});
+				spritex += '}\n';
+				spritey += '}\n';
+				spritewidth += '}\n';
+				spriteheight += '}\n';
+				output += spritex + spritey + spritewidth + spriteheight;
+				output += '@function sprite-background-position($name) {\n';
+				output += '  @return (sprite-x($name)*-1px) (sprite-y($name)*-1px);\n';
+				output += '}\n';
+
+				if (options.sassFile) {
+					grunt.file.write(options.sassFile, output);
+					grunt.log.writeln('File "' + options.sassFile + '" created (sprite map).');
+				}
+
+				packeddone = true;
+				maybedone();
+			});
+
 			generated.on('end', function() {
 				grunt.log.writeln('File "' + f.dest + '" created.');
-				done(true);
+				streamdone = true;
+				maybedone();
 			});
 		});
 	});
