@@ -1,0 +1,40 @@
+{
+  "name": "grunt-spritemaker-svg",
+  "description": "Create SVG sprite maps from SVG sprites",
+  "version": "0.1.0",
+  "homepage": "https://github.com/bryanburgers/grunt-spritemaker-svg",
+  "author": {
+    "name": "Bryan Burgers",
+    "email": "bryan@burgers.io",
+    "url": "http://burgers.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bryanburgers/grunt-spritemaker-svg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bryanburgers/grunt-spritemaker-svg/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt": "~0.4.2"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.2"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "dependencies": {
+    "spritemaker-svg": "~0.1.0"
+  }
+}
