@@ -49,6 +49,7 @@ module.exports = function(grunt) {
 			generated.pipe(output);
 
 			generated.on('end', function() {
+				grunt.log.writeln('File "' + f.dest + '" created.');
 				done(true);
 			});
 		});
