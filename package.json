@@ -1,7 +1,7 @@
 {
   "name": "grunt-spritemaker-svg",
   "description": "Create SVG sprite maps from SVG sprites",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/bryanburgers/grunt-spritemaker-svg",
   "author": {
     "name": "Bryan Burgers",
