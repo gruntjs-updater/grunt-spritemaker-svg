@@ -35,6 +35,6 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "spritemaker-svg": "~0.1.0"
+    "spritemaker-svg": "~0.1.1"
   }
 }
